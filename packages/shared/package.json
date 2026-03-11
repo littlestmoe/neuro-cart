@@ -1,0 +1,37 @@
+{
+  "name": "@neuro-cart/shared",
+  "version": "0.1.0",
+  "private": true,
+  "exports": {
+    "./providers": "./src/providers/index.ts",
+    "./types": "./src/types.ts",
+    "./schemas": "./src/schemas.ts",
+    "./hooks": "./src/hooks/index.ts",
+    "./bindings/product-server": "./src/bindings/product-server/index.ts",
+    "./bindings/cart-server": "./src/bindings/cart-server/index.ts",
+    "./bindings/order-server": "./src/bindings/order-server/index.ts",
+    "./bindings/user-server": "./src/bindings/user-server/index.ts",
+    "./bindings/review-server": "./src/bindings/review-server/index.ts",
+    "./bindings/payment-server": "./src/bindings/payment-server/index.ts",
+    "./src/styles/*": "./src/styles/*",
+    "./styles/*": "./src/styles/*"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^22.15.3",
+    "@types/react": "19.2.2",
+    "eslint": "^9.39.1",
+    "typescript": "5.9.2"
+  },
+  "dependencies": {
+    "next-themes": "^0.4.6",
+    "react": "^19.2.0",
+    "spacetimedb": "^2.0.3",
+    "zod": "^3.23.8"
+  }
+}
