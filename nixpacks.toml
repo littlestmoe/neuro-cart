@@ -1,0 +1,14 @@
+[phases.setup]
+nixPkgs = ["...", "nodejs-18_x"]
+
+[phases.install]
+dependsOn = ["setup"]
+cmds = ["npm install -g pnpm@9.0.0", "pnpm install"]
+
+[phases.build]
+dependsOn = ["install"]
+cmds = ["pnpm build"]
+
+[phases.deploy]
+dependsOn = ["build"]
+cmds = ["pnpm start"]
