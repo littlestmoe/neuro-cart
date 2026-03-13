@@ -1,0 +1,38 @@
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.star {
+  color: var(--color-border, #ddd);
+  transition: color 0.15s ease;
+}
+
+.filled {
+  color: #f1c40f;
+}
+
+.half {
+  color: #f1c40f;
+  opacity: 0.5;
+}
+
+.small {
+  font-size: 0.85rem;
+}
+
+.medium {
+  font-size: 1.1rem;
+}
+
+.large {
+  font-size: 1.4rem;
+}
+
+.value {
+  margin-left: 0.35rem;
+  font-size: 0.85em;
+  font-weight: 600;
+  color: var(--color-text, #333);
+}
