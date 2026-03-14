@@ -174,7 +174,7 @@ export default function ProductDetailPage() {
               <Image
                 key={i}
                 className={`${styles.thumb} ${i === activeImg ? styles.thumbActive : ""}`}
-                src={img}
+                src={img || "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop"}
                 alt={`${product.name} view ${i + 1}`}
                 width={80}
                 height={80}
@@ -197,7 +197,7 @@ export default function ProductDetailPage() {
             )}
             <Image
               className={styles.mainImg}
-              src={images[activeImg] || ""}
+              src={images[activeImg] || "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop"}
               alt={product.name}
               width={500}
               height={500}
