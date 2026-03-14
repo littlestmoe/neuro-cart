@@ -14,7 +14,9 @@
     "cart": "Cart",
     "checkout": "Checkout",
     "account": "Account",
-    "wishlist": "Wishlist"
+    "wishlist": "Wishlist",
+    "switchLanguage": "Switch Language",
+    "login": "Login"
   },
   "nav": {
     "searchPlaceholder": "Search products with AI...",
