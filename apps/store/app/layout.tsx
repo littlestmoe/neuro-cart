@@ -3,6 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { DM_Sans, Playfair_Display } from "next/font/google";
 import { getLocale, getMessages } from "next-intl/server";
 import { Providers } from "./providers";
+import { UserSyncWrapper } from "../components/UserSyncWrapper";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -45,7 +46,7 @@ export default async function RootLayout({
       >
         <body suppressHydrationWarning>
           <Providers locale={locale} messages={messages}>
-            {children}
+            <UserSyncWrapper>{children}</UserSyncWrapper>
           </Providers>
         </body>
       </html>
