@@ -14,7 +14,9 @@
     "cart": "عربة التسوق",
     "checkout": "الدفع",
     "account": "الحساب",
-    "wishlist": "المفضلة"
+    "wishlist": "المفضلة",
+    "switchLanguage": "تبديل اللغة",
+    "login": "تسجيل الدخول"
   },
   "nav": {
     "searchPlaceholder": "ابحث عن المنتجات بالذكاء الاصطناعي...",
