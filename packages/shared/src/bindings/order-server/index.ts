@@ -106,9 +106,9 @@ export type SubscriptionHandle = __SubscriptionHandleImpl<typeof REMOTE_MODULE>;
 
 export class SubscriptionBuilder extends __SubscriptionBuilderImpl<
   typeof REMOTE_MODULE
-> {}
+> { }
 
-export class DbConnectionBuilder extends __DbConnectionBuilder<DbConnection> {}
+export class DbConnectionBuilder extends __DbConnectionBuilder<DbConnection> { }
 
 export class DbConnection extends __DbConnectionImpl<typeof REMOTE_MODULE> {
   static builder = (): DbConnectionBuilder => {
