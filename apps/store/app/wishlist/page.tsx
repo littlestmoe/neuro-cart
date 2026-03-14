@@ -100,7 +100,6 @@ export default function WishlistPage() {
                       product={
                         product as unknown as import("@neuro-cart/shared/types").Product
                       }
-                      isInWishlist
                     />
                   </div>
                 ),
