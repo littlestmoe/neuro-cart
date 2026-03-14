@@ -52,11 +52,11 @@ export default function HomePage() {
         | undefined;
       return {
         ...p,
-        status: hasStatus && "Active" in hasStatus ? "active" : "draft",
+        status: hasStatus && (hasStatus as { tag?: string }).tag === "Active" ? "active" : "draft",
         condition:
-          hasCondition && "New" in hasCondition
+          hasCondition && (hasCondition as { tag?: string }).tag === "New"
             ? "new"
-            : hasCondition && "Used" in hasCondition
+            : hasCondition && (hasCondition as { tag?: string }).tag === "Used"
               ? "used"
               : "refurbished",
         createdAt:
