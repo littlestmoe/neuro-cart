@@ -27,12 +27,7 @@ pub fn add_review(
 }
 
 #[reducer]
-pub fn update_review(
-    ctx: &ReducerContext,
-    id: String,
-    rating: i32,
-    comment: String,
-) {
+pub fn update_review(ctx: &ReducerContext, id: String, rating: i32, comment: String) {
     if let Some(mut existing) = ctx.db.review().id().find(&id) {
         existing.rating = rating;
         existing.comment = comment;

@@ -50,7 +50,12 @@ pub fn update_cart_quantity(ctx: &ReducerContext, id: String, quantity: i32) {
 
 #[reducer]
 pub fn clear_user_cart(ctx: &ReducerContext, user_id: String) {
-    let items: Vec<CartItem> = ctx.db.cart_item().iter().filter(|i| i.user_id == user_id).collect();
+    let items: Vec<CartItem> = ctx
+        .db
+        .cart_item()
+        .iter()
+        .filter(|i| i.user_id == user_id)
+        .collect();
     for item in items {
         ctx.db.cart_item().id().delete(&item.id);
     }
