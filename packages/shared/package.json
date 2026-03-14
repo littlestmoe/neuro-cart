@@ -14,7 +14,9 @@
     "./bindings/review-server": "./src/bindings/review-server/index.ts",
     "./bindings/payment-server": "./src/bindings/payment-server/index.ts",
     "./src/styles/*": "./src/styles/*",
-    "./styles/*": "./src/styles/*"
+    "./styles/*": "./src/styles/*",
+    "./components": "./src/components/index.ts",
+    "./constants": "./src/constants.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -32,6 +34,9 @@
     "next-themes": "^0.4.6",
     "react": "^19.2.0",
     "spacetimedb": "^2.0.3",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "lucide-react": "^0.468.0",
+    "next": "16.1.5",
+    "next-intl": "^4.1.4"
   }
 }
