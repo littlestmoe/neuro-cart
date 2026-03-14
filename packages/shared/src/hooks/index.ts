@@ -7,3 +7,4 @@ export * from "./useReviews";
 export * from "./usePayments";
 export * from "./useModeration";
 export * from "./useAITools";
+export * from "./useEnsureUser";
