@@ -48,18 +48,27 @@ export function useOrders(userId?: string, sellerId?: string) {
     connected,
   );
 
-  const orderItems = useTableData<OrderItem>(
+  const allOrderItems = useTableData<OrderItem>(
     useCallback((conn: DbConnection) => conn.db.order_item.iter(), []),
     connection,
     connected,
   );
 
   const orders = useMemo(() => {
+    // If specific IDs are requested but not yet loaded, return empty to avoid flickering all data
+    if (userId === "" || sellerId === "") return [];
+    
     let filtered = allOrders;
     if (userId) filtered = filtered.filter((o) => o.userId === userId);
     if (sellerId) filtered = filtered.filter((o) => o.sellerId === sellerId);
     return filtered;
   }, [allOrders, userId, sellerId]);
+
+  const orderItems = useMemo(() => {
+    if (!userId && !sellerId) return allOrderItems;
+    const orderIds = new Set(orders.map((o) => o.id));
+    return allOrderItems.filter((item) => orderIds.has(item.orderId));
+  }, [allOrderItems, orders, userId, sellerId]);
 
   const createOrder = useCallback(
     (params: CreateOrderParams) => {
