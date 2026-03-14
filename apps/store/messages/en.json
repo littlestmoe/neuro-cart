@@ -27,7 +27,8 @@
     "systemTheme": "System",
     "language": "Language",
     "english": "English",
-    "arabic": "العربية"
+    "arabic": "العربية",
+    "switchLanguage": "Switch Language"
   },
   "nav": {
     "home": "Home",
@@ -131,6 +132,12 @@
     "townCity": "Town / City",
     "phone": "Phone Number",
     "email": "Email Address",
+    "companyNamePlaceholder": "Enter company name",
+    "streetAddressPlaceholder": "Enter street address",
+    "apartmentPlaceholder": "Apartment, suite, unit etc.",
+    "subtotal": "Subtotal:",
+    "shipping": "Shipping:",
+    "total": "Total:",
     "saveInfo": "Save this information for faster check-out next time",
     "paymentMethod": "Payment Method",
     "creditCard": "Credit Card",
