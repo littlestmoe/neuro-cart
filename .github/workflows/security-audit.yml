@@ -1,0 +1,30 @@
+name: 🛡️ Security Audit
+
+on:
+  push:
+    branches: ["main", "master"]
+    paths:
+      - "package.json"
+      - "pnpm-lock.yaml"
+  schedule:
+    - cron: "0 0 * * 1"
+
+jobs:
+  audit:
+    name: 🛡️ Security Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: 🟢 Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: 🛡️ Run Audit
+        run: pnpm audit --prod

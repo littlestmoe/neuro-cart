@@ -1,0 +1,39 @@
+name: 🦀 Server Format
+
+on:
+  push:
+    branches: ["main", "master"]
+    paths:
+      - "servers/**"
+  pull_request:
+    branches: ["main", "master"]
+    paths:
+      - "servers/**"
+
+jobs:
+  fmt:
+    name: 🦀 Fmt
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        server:
+          - cart-server
+          - order-server
+          - payment-server
+          - product-server
+          - review-server
+          - user-server
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🦀 Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+
+      - name: 🔍 Check Formatting
+        working-directory: servers/${{ matrix.server }}
+        run: cargo fmt -- --check
