@@ -1,15 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { useTranslations } from "next-intl";
 import { UserButton } from "@clerk/nextjs";
-import { Sparkles, Shield, Sun, Moon } from "lucide-react";
+import { Sparkles, Shield, Sun, Moon, Menu, X } from "lucide-react";
 import Button from "@neuro-cart/ui/Button";
+import { LanguageToggle } from "@neuro-cart/shared/components";
 import styles from "./AdminNavbar.module.css";
 
-export default function AdminNavbar() {
+interface AdminNavbarProps {
+  onMenuToggle?: () => void;
+  menuOpen?: boolean;
+}
+
+export default function AdminNavbar({
+  onMenuToggle,
+  menuOpen,
+}: AdminNavbarProps) {
   const pathname = usePathname();
   const { resolvedTheme, setTheme } = useTheme();
   const t = useTranslations("common");
@@ -32,18 +41,31 @@ export default function AdminNavbar() {
 
   const title = routeLabels[pathname] || t("dashboard");
 
+  const toggleTheme = useCallback(() => {
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+  }, [resolvedTheme, setTheme]);
+
   return (
-    <header className={styles.navbar}>
+    <header className={styles.navbar} role="banner">
       <div className={styles.left}>
+        {onMenuToggle && (
+          <button
+            className={styles.hamburger}
+            onClick={onMenuToggle}
+            aria-label={menuOpen ? t("close") || "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            type="button"
+          >
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        )}
         <h1 className={styles.pageTitle}>{title}</h1>
       </div>
       <div className={styles.actions}>
         {mounted && (
           <Button
             className={styles.iconBtn}
-            onClick={() =>
-              setTheme(resolvedTheme === "dark" ? "light" : "dark")
-            }
+            onClick={toggleTheme}
             aria-label={
               resolvedTheme === "dark" ? t("lightMode") : t("darkMode")
             }
@@ -54,6 +76,7 @@ export default function AdminNavbar() {
             {resolvedTheme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </Button>
         )}
+        <LanguageToggle />
         <span className={styles.aiHint}>
           <Sparkles size={14} aria-hidden="true" /> AI
         </span>
