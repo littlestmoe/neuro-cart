@@ -6,17 +6,33 @@
 }
 
 .content {
-  margin-left: 240px;
+  margin-inline-start: 240px;
   flex: 1;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  transition: margin-left var(--transition-normal);
+  transition: margin-inline-start var(--transition-normal);
   background: var(--color-bg);
 }
 
-@media (max-width: 768px) {
+.main {
+  flex: 1;
+  padding: 0;
+}
+
+@media (max-width: 1024px) {
   .content {
-    margin-left: 68px;
+    margin-inline-start: 68px;
+  }
+}
+
+@media (max-width: 768px) {
+  .layout {
+    flex-direction: column;
+  }
+
+  .content {
+    margin-inline-start: 0;
+    min-height: calc(100vh - 60px);
   }
 }

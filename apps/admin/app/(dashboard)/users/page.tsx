@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import {
   useReactTable,
@@ -17,7 +17,8 @@ import {
   ArrowUpDown,
   ChevronLeft,
   ChevronRight,
-  MoreHorizontal,
+  Ban,
+  ShieldCheck,
 } from "lucide-react";
 import { useUserProfiles } from "@neuro-cart/shared/hooks";
 import { useOrders } from "@neuro-cart/shared/hooks";
@@ -58,7 +59,7 @@ export default function AdminUsersPage() {
   const [globalFilter, setGlobalFilter] = useState("");
   const [roleFilter, setRoleFilter] = useState<UserRole | "all">("all");
 
-  const { userProfiles } = useUserProfiles();
+  const { userProfiles, updateUserStatus } = useUserProfiles();
   const { orders } = useOrders();
 
   const usersData = useMemo<UserRow[]>(() => {
@@ -90,20 +91,27 @@ export default function AdminUsersPage() {
     return usersData.filter((u) => u.role === roleFilter);
   }, [usersData, roleFilter]);
 
+  const handleStatusToggle = useCallback(
+    (userId: string, currentStatus: UserStatus) => {
+      const newStatus = currentStatus === "active" ? "Suspended" : "Active";
+
+      updateUserStatus({ id: userId, status: { tag: newStatus } });
+    },
+    [updateUserStatus],
+  );
+
   const columns = useMemo<ColumnDef<UserRow>[]>(
     () => [
       {
         accessorKey: "name",
         header: ({ column }) => (
-          <Button
+          <button
             className={styles.sortBtn}
             onClick={() => column.toggleSorting()}
             type="button"
-            variant="ghost"
-            size="small"
           >
-            {tc("account")} <ArrowUpDown size={14} />
-          </Button>
+            {tc("name")} <ArrowUpDown size={14} aria-hidden="true" />
+          </button>
         ),
         cell: ({ row }) => (
           <div>
@@ -114,7 +122,7 @@ export default function AdminUsersPage() {
       },
       {
         accessorKey: "role",
-        header: "Role",
+        header: t("role"),
         cell: ({ getValue }) => {
           const role = getValue<UserRole>();
           const cls =
@@ -123,12 +131,14 @@ export default function AdminUsersPage() {
               : role === "seller"
                 ? styles.roleSeller
                 : styles.roleBuyer;
-          return <span className={`${styles.roleBadge} ${cls}`}>{role}</span>;
+          return (
+            <span className={`${styles.roleBadge} ${cls}`}>{t(role)}</span>
+          );
         },
       },
       {
         accessorKey: "status",
-        header: "Status",
+        header: tc("status"),
         cell: ({ getValue }) => {
           const s = getValue<UserStatus>();
           const cls =
@@ -137,45 +147,58 @@ export default function AdminUsersPage() {
               : s === "suspended"
                 ? styles.statusSuspended
                 : styles.statusPending;
-          return <span className={`${styles.statusBadge} ${cls}`}>{s}</span>;
+          return <span className={`${styles.statusBadge} ${cls}`}>{t(s)}</span>;
         },
       },
-      { accessorKey: "joinedAt", header: tc("loading") },
+      {
+        accessorKey: "joinedAt",
+        header: t("joined"),
+      },
       {
         accessorKey: "orders",
         header: ({ column }) => (
-          <Button
+          <button
             className={styles.sortBtn}
             onClick={() => column.toggleSorting()}
             type="button"
-            variant="ghost"
-            size="small"
           >
-            {tc("loading")} <ArrowUpDown size={14} />
-          </Button>
+            {t("orders")} <ArrowUpDown size={14} aria-hidden="true" />
+          </button>
         ),
       },
       {
         accessorKey: "totalSpent",
-        header: tc("loading"),
+        header: t("totalSpent"),
         cell: ({ getValue }) => `$${getValue<number>().toFixed(2)}`,
       },
       {
         id: "actions",
         header: "",
-        cell: () => (
-          <Button
-            className={styles.actionBtn}
-            aria-label={tc("view")}
-            variant="ghost"
-            size="small"
-          >
-            <MoreHorizontal size={18} />
-          </Button>
+        cell: ({ row }) => (
+          <div className={styles.actions}>
+            <button
+              className={`${styles.actionBtn} ${row.original.status === "active" ? styles.actionDanger : styles.actionSuccess}`}
+              onClick={() =>
+                handleStatusToggle(row.original.id, row.original.status)
+              }
+              aria-label={
+                row.original.status === "active"
+                  ? `${t("suspend")} ${row.original.name}`
+                  : `${t("activate")} ${row.original.name}`
+              }
+              type="button"
+            >
+              {row.original.status === "active" ? (
+                <Ban size={16} aria-hidden="true" />
+              ) : (
+                <ShieldCheck size={16} aria-hidden="true" />
+              )}
+            </button>
+          </div>
         ),
       },
     ],
-    [tc],
+    [t, tc, handleStatusToggle],
   );
 
   const table = useReactTable({
@@ -192,7 +215,14 @@ export default function AdminUsersPage() {
   });
 
   return (
-    <main className={styles.page} id="main-content">
+    <main className={styles.page} id="main-content" aria-label={t("title")}>
+      <header className={styles.header}>
+        <div className={styles.titleGroup}>
+          <h1>{t("title")}</h1>
+          <p>{t("subtitle")}</p>
+        </div>
+      </header>
+
       <div className={styles.toolbar}>
         <div className={styles.searchWrap}>
           <Search size={18} className={styles.searchIcon} aria-hidden="true" />
@@ -203,11 +233,7 @@ export default function AdminUsersPage() {
             fullWidth
           />
         </div>
-        <div
-          className={styles.roleFilters}
-          role="group"
-          aria-label={tc("search")}
-        >
+        <div className={styles.roleFilters} role="group" aria-label={t("role")}>
           {(["all", "buyer", "seller", "admin"] as const).map((r) => (
             <Button
               key={r}
@@ -216,69 +242,76 @@ export default function AdminUsersPage() {
               variant="secondary"
               size="small"
             >
-              {r === "all" ? tc("search") : r}
+              {r === "all" ? t("all") : t(r)}
             </Button>
           ))}
         </div>
       </div>
 
-      <div className={styles.tableWrap}>
-        <table className={styles.table} aria-label={t("title")}>
-          <thead>
-            {table.getHeaderGroups().map((hg) => (
-              <tr key={hg.id}>
-                {hg.headers.map((h) => (
-                  <th key={h.id} className={styles.th}>
-                    {h.isPlaceholder
-                      ? null
-                      : flexRender(h.column.columnDef.header, h.getContext())}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody>
-            {table.getRowModel().rows.map((row) => (
-              <tr key={row.id} className={styles.tr}>
-                {row.getVisibleCells().map((cell) => (
-                  <td key={cell.id} className={styles.td}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      <div className={styles.pagination}>
-        <span className={styles.pageInfo}>
-          {tc("loading")} {table.getState().pagination.pageIndex + 1}{" "}
-          {tc("loading")} {table.getPageCount()}
-        </span>
-        <div className={styles.pageButtons}>
-          <Button
-            className={styles.pageBtn}
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-            aria-label={tc("loading")}
-            variant="secondary"
-            size="small"
-          >
-            <ChevronLeft size={18} />
-          </Button>
-          <Button
-            className={styles.pageBtn}
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-            aria-label={tc("loading")}
-            variant="secondary"
-            size="small"
-          >
-            <ChevronRight size={18} />
-          </Button>
+      <section aria-label={t("title")}>
+        <div className={styles.tableWrap}>
+          <table className={styles.table} aria-label={t("title")}>
+            <thead>
+              {table.getHeaderGroups().map((hg) => (
+                <tr key={hg.id}>
+                  {hg.headers.map((h) => (
+                    <th key={h.id} className={styles.th}>
+                      {h.isPlaceholder
+                        ? null
+                        : flexRender(h.column.columnDef.header, h.getContext())}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr key={row.id} className={styles.tr}>
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id} className={styles.td}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      </div>
+
+        {filteredData.length === 0 && (
+          <p className={styles.empty}>{t("noUsers")}</p>
+        )}
+
+        <nav className={styles.pagination} aria-label={tc("page")}>
+          <span className={styles.pageInfo}>
+            {tc("page")} {table.getState().pagination.pageIndex + 1} {tc("of")}{" "}
+            {table.getPageCount()}
+          </span>
+          <div className={styles.pageButtons}>
+            <button
+              className={styles.pageBtn}
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+              aria-label={tc("previous")}
+              type="button"
+            >
+              <ChevronLeft size={18} aria-hidden="true" />
+            </button>
+            <button
+              className={styles.pageBtn}
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+              aria-label={tc("next")}
+              type="button"
+            >
+              <ChevronRight size={18} aria-hidden="true" />
+            </button>
+          </div>
+        </nav>
+      </section>
     </main>
   );
 }

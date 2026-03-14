@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import Button from "@neuro-cart/ui/Button";
+import { LanguageToggle } from "@neuro-cart/shared/components";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
@@ -91,6 +92,8 @@ export default function Navbar() {
               )}
             </Button>
           )}
+
+          <LanguageToggle />
 
           <Link
             href="/wishlist"

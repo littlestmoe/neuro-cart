@@ -74,7 +74,8 @@ export default function Footer() {
                 <Phone size={14} aria-hidden="true" /> +1 (555) 123-4567
               </p>
               <p>
-                <Mail size={14} aria-hidden="true" /> support@neurocart.ai
+                <Mail size={14} aria-hidden="true" />{" "}
+                support@neurocart.up.railway.app
               </p>
             </address>
           </section>

@@ -27,7 +27,8 @@
     "systemTheme": "النظام",
     "language": "اللغة",
     "english": "English",
-    "arabic": "العربية"
+    "arabic": "العربية",
+    "switchLanguage": "تبديل اللغة"
   },
   "nav": {
     "home": "الرئيسية",
@@ -131,6 +132,12 @@
     "townCity": "المدينة",
     "phone": "رقم الهاتف",
     "email": "البريد الإلكتروني",
+    "companyNamePlaceholder": "أدخل اسم الشركة",
+    "streetAddressPlaceholder": "أدخل عنوان الشارع",
+    "apartmentPlaceholder": "الشقة، الجناح، إلخ",
+    "subtotal": "المجموع الفرعي:",
+    "shipping": "الشحن:",
+    "total": "الإجمالي:",
     "saveInfo": "احفظ هذه المعلومات لتسريع عملية الدفع في المرة القادمة",
     "paymentMethod": "طريقة الدفع",
     "creditCard": "بطاقة الائتمان",

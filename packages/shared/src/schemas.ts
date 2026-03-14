@@ -13,7 +13,7 @@ export const productSchema = z.object({
   description: z.string().max(5000).optional(),
   stock: z.number().int().min(0),
   tags: z.array(z.string()).optional(),
-  condition: z.enum(["new", "refurbished", "used"]).default("new"),
+  condition: z.enum(["new", "refurbished", "used"]),
 });
 
 export const billingInfoSchema = z.object({

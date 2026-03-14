@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ShoppingCart, Heart, Eye } from "lucide-react";
 import styles from "./ProductCard.module.css";
 import Button from "@neuro-cart/ui/Button";
+import { useCart } from "@neuro-cart/shared/hooks";
+import { useUser } from "@clerk/nextjs";
 import type { Product } from "@neuro-cart/shared/types";
 
 type UIProduct = Omit<
@@ -22,16 +24,36 @@ interface ProductCardProps {
   product: UIProduct | Product;
   featured?: boolean;
   onAddToCart?: (product: Product) => void;
-  onToggleWishlist?: (product: Product) => void;
-  isInWishlist?: boolean;
 }
 
 export default function ProductCard({
   product,
   onAddToCart,
-  onToggleWishlist,
-  isInWishlist = false,
 }: ProductCardProps) {
+  const { user } = useUser();
+  const userId = user?.id ?? "";
+  const { wishlistItems, addToWishlist, removeFromWishlist } = useCart(userId);
+
+  const isInWishlist = wishlistItems.some((w) => w.productId === product.id);
+
+  const handleToggleWishlist = () => {
+    if (!userId) return;
+    if (isInWishlist) {
+      const wishlistItem = wishlistItems.find(
+        (w) => w.productId === product.id,
+      );
+      if (wishlistItem) removeFromWishlist({ id: wishlistItem.id });
+    } else {
+      addToWishlist({
+        userId,
+        productId: product.id,
+        productName: product.name,
+        productImage: product.image,
+        unitPrice: product.price,
+      });
+    }
+  };
+
   return (
     <article className={styles.card}>
       <div className={styles.imageWrapper}>
@@ -40,7 +62,10 @@ export default function ProductCard({
           aria-label={`View ${product.name}`}
         >
           <Image
-            src={product.image}
+            src={
+              product.image ||
+              "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop"
+            }
             alt={product.name}
             width={300}
             height={300}
@@ -63,7 +88,7 @@ export default function ProductCard({
         <div className={styles.overlay}>
           <Button
             className={`${styles.actionBtn} ${isInWishlist ? styles.active : ""}`}
-            onClick={() => onToggleWishlist?.(product as Product)}
+            onClick={handleToggleWishlist}
             aria-label={
               isInWishlist ? "Remove from wishlist" : "Add to wishlist"
             }

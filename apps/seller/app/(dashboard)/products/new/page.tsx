@@ -13,6 +13,7 @@ import {
 import Button from "@neuro-cart/ui/Button";
 import Input from "@neuro-cart/ui/Input";
 import styles from "./page.module.css";
+import { ProductCondition } from "../../../../../../packages/shared/src/bindings/product-server/types";
 
 interface ProductFormValues {
   name: string;
@@ -96,7 +97,6 @@ export default function NewProductPage() {
           .map((t) => t.trim())
           .filter(Boolean)
       : [];
-
     addProduct({
       name: data.name,
       price,
@@ -111,7 +111,7 @@ export default function NewProductPage() {
       description: data.description || undefined,
       stock: parseInt(data.stock || "0"),
       sellerId,
-      condition: { New: {} } as never,
+      condition: { tag: "New" } as ProductCondition,
       tags: tagsArray,
     });
 
@@ -194,7 +194,10 @@ export default function NewProductPage() {
                 <Input
                   id="stock"
                   type="number"
-                  {...register("stock", { required: "Stock is required" })}
+                  {...register("stock", {
+                    required: "Stock is required",
+                    valueAsNumber: true,
+                  })}
                   label="Stock Quantity"
                   placeholder="0"
                   min={0}
@@ -207,7 +210,10 @@ export default function NewProductPage() {
                   id="price"
                   type="number"
                   step="0.01"
-                  {...register("price", { required: "Price is required" })}
+                  {...register("price", {
+                    required: "Price is required",
+                    valueAsNumber: true,
+                  })}
                   label="Price ($)"
                   placeholder="0.00"
                   error={errors.price?.message}
@@ -219,7 +225,7 @@ export default function NewProductPage() {
                   id="originalPrice"
                   type="number"
                   step="0.01"
-                  {...register("originalPrice")}
+                  {...register("originalPrice", { valueAsNumber: true })}
                   label="Original Price ($) (optional)"
                   placeholder="0.00"
                   error={errors.originalPrice?.message}

@@ -12,6 +12,7 @@ import {
   PaymentDbProvider,
 } from "@neuro-cart/shared/providers";
 import { useAuth } from "@clerk/nextjs";
+import { SPACETIMEDB_MODULES } from "@neuro-cart/shared/constants";
 
 const SPACETIMEDB_HOST =
   process.env.NEXT_PUBLIC_SPACETIMEDB_HOST || "ws://localhost:3000";
@@ -27,32 +28,46 @@ function SpacetimeProviders({ children }: { children: React.ReactNode }) {
   return (
     <UserDbProvider
       host={SPACETIMEDB_HOST}
-      moduleName="neuro-cart-user-server"
+      moduleName={
+        process.env.NEXT_PUBLIC_USER_MODULE || SPACETIMEDB_MODULES.user
+      }
       authToken={token}
     >
       <ProductDbProvider
         host={SPACETIMEDB_HOST}
-        moduleName="neuro-cart-product-server"
+        moduleName={
+          process.env.NEXT_PUBLIC_PRODUCT_MODULE || SPACETIMEDB_MODULES.product
+        }
         authToken={token}
       >
         <CartDbProvider
           host={SPACETIMEDB_HOST}
-          moduleName="neuro-cart-cart-server"
+          moduleName={
+            process.env.NEXT_PUBLIC_CART_MODULE || SPACETIMEDB_MODULES.cart
+          }
           authToken={token}
         >
           <OrderDbProvider
             host={SPACETIMEDB_HOST}
-            moduleName="neuro-cart-order-server"
+            moduleName={
+              process.env.NEXT_PUBLIC_ORDER_MODULE || SPACETIMEDB_MODULES.order
+            }
             authToken={token}
           >
             <ReviewDbProvider
               host={SPACETIMEDB_HOST}
-              moduleName="neuro-cart-review-server"
+              moduleName={
+                process.env.NEXT_PUBLIC_REVIEW_MODULE ||
+                SPACETIMEDB_MODULES.review
+              }
               authToken={token}
             >
               <PaymentDbProvider
                 host={SPACETIMEDB_HOST}
-                moduleName="neuro-cart-payment-server"
+                moduleName={
+                  process.env.NEXT_PUBLIC_PAYMENT_MODULE ||
+                  SPACETIMEDB_MODULES.payment
+                }
                 authToken={token}
               >
                 {children}

@@ -25,10 +25,6 @@ export const metadata: Metadata = {
     "Manage your products, orders, and analytics with AI-powered insights on Neuro Cart.",
 };
 
-import Sidebar from "../components/Sidebar/Sidebar";
-import SellerNavbar from "../components/SellerNavbar/SellerNavbar";
-import styles from "@neuro-cart/shared/src/styles/dashboardLayout.module.css";
-
 export default async function SellerLayout({
   children,
 }: {
@@ -47,13 +43,7 @@ export default async function SellerLayout({
       >
         <body suppressHydrationWarning>
           <Providers locale={locale} messages={messages}>
-            <div className={styles.layout}>
-              <Sidebar />
-              <div className={styles.content}>
-                <SellerNavbar />
-                <div style={{ flex: 1 }}>{children}</div>
-              </div>
-            </div>
+            {children}
           </Providers>
         </body>
       </html>

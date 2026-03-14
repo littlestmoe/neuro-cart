@@ -25,10 +25,6 @@ export const metadata: Metadata = {
     "Platform administration dashboard for Neuro Cart. Manage users, products, and platform analytics.",
 };
 
-import AdminSidebar from "../components/AdminSidebar/AdminSidebar";
-import AdminNavbar from "../components/AdminNavbar/AdminNavbar";
-import styles from "@neuro-cart/shared/src/styles/dashboardLayout.module.css";
-
 export default async function AdminLayout({
   children,
 }: {
@@ -47,13 +43,7 @@ export default async function AdminLayout({
       >
         <body suppressHydrationWarning>
           <Providers locale={locale} messages={messages}>
-            <div className={styles.layout}>
-              <AdminSidebar />
-              <div className={styles.content}>
-                <AdminNavbar />
-                <div style={{ flex: 1 }}>{children}</div>
-              </div>
-            </div>
+            {children}
           </Providers>
         </body>
       </html>
