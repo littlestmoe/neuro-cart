@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   transpilePackages: ["@neuro-cart/ui", "@neuro-cart/shared"],
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -14,7 +15,19 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
+        hostname: "**.images.unsplash.com",
+      },
+      {
+        protocol: "https",
         hostname: "images.unsplash.com",
+      },
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+      },
+      {
+        protocol: "https",
+        hostname: "**.placehold.co",
       },
     ],
   },
