@@ -137,7 +137,7 @@ export default function AdminSettingsPage() {
                 id="supportEmail"
                 type="email"
                 label={t("supportEmail")}
-                defaultValue="support@neurocart.com"
+                defaultValue="support@neurocart.up.railway.app"
               />
             </div>
             <div className={styles.formGroup}>

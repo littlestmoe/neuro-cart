@@ -4,6 +4,10 @@
   <strong>Microservices E-Commerce with Real-Time Sync, AI Content Intelligence, and Multi-Dashboard Architecture</strong>
 </p>
 
+| <a href="https://neurocart.up.railway.app"><img src="https://img.shields.io/badge/🚀_Storefront-Live_on_Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white&labelColor=10B981" height="42" alt="Storefront" /></a> | <a href="https://neurocartseller.up.railway.app"><img src="https://img.shields.io/badge/🚀_Seller_Dashboard-Live_on_Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white&labelColor=3B82F6" height="42" alt="Seller Dashboard" /></a> | <a href="https://neurocartadmin.up.railway.app"><img src="https://img.shields.io/badge/🚀_Admin_Dashboard-Live_on_Railway-0B0D0E?style=for-the-badge&logo=railway&logoColor=white&labelColor=8B5CF6" height="42" alt="Admin Dashboard" /></a> |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                             <a href="https://neurocart.up.railway.app"><img src="./docs/assets/store.png" alt="Storefront" /></a>                                                              |                                                                <a href="https://neurocartseller.up.railway.app"><img src="./docs/assets/seller.png" alt="Seller Dashboard" /></a>                                                                |                                                                <a href="https://neurocartadmin.up.railway.app"><img src="./docs/assets/admin.png" alt="Admin Dashboard" /></a>                                                                |
+
 <p align="center">
   <img src="https://img.shields.io/badge/Next.js-16.1-black?style=for-the-badge&logo=next.js&logoColor=white" alt="Next.js" />
   <img src="https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react&logoColor=white" alt="React" />
@@ -20,11 +24,40 @@
   </a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/littlestmo/neuro-cart/actions/workflows/typecheck.yml"><img src="https://img.shields.io/github/actions/workflow/status/littlestmo/neuro-cart/typecheck.yml?style=for-the-badge&logo=githubactions&logoColor=white&label=Typecheck" alt="Typecheck" /></a>
+  <a href="https://github.com/littlestmo/neuro-cart/actions/workflows/prettier.yml"><img src="https://img.shields.io/github/actions/workflow/status/littlestmo/neuro-cart/prettier.yml?style=for-the-badge&logo=githubactions&logoColor=white&label=Prettier" alt="Prettier Check" /></a>
+  <a href="https://github.com/littlestmo/neuro-cart/actions/workflows/lint.yml"><img src="https://img.shields.io/github/actions/workflow/status/littlestmo/neuro-cart/lint.yml?style=for-the-badge&logo=githubactions&logoColor=white&label=Lint" alt="Lint Check" /></a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/littlestmo/neuro-cart/actions/workflows/admin-build.yml"><img src="https://img.shields.io/github/actions/workflow/status/littlestmo/neuro-cart/admin-build.yml?style=for-the-badge&logo=githubactions&logoColor=white&label=Admin Build" alt="Admin Build" /></a>
+  <a href="https://github.com/littlestmo/neuro-cart/actions/workflows/seller-build.yml"><img src="https://img.shields.io/github/actions/workflow/status/littlestmo/neuro-cart/seller-build.yml?style=for-the-badge&logo=githubactions&logoColor=white&label=Seller Build" alt="Seller Build" /></a>
+  <a href="https://github.com/littlestmo/neuro-cart/actions/workflows/store-build.yml"><img src="https://img.shields.io/github/actions/workflow/status/littlestmo/neuro-cart/store-build.yml?style=for-the-badge&logo=githubactions&logoColor=white&label=Store Build" alt="Store Build" /></a>
+</p>
+
 ## Overview
 
 Neuro Cart is a production-grade e-commerce platform built as a Turborepo monorepo. It features three independent Next.js 16 dashboards, **Store** (customer-facing), **Seller** (merchant portal), and **Admin** (platform operations), backed by six Rust-based SpacetimeDB microservices. AI capabilities for content moderation, product generation, fraud detection, and intelligent search are powered by Cohere's Command A model via the Vercel AI SDK through Next.js Server Actions.
 
 Every data mutation flows through SpacetimeDB WASM reducers over WebSockets. There are zero REST endpoints, zero HTTP round-trips for CRUD. Clients subscribe to table changes and receive real-time delta pushes, the UI stays synchronized across all connected dashboards instantly.
+
+## Preview
+
+| Storefront                                                  | Seller Dashboard                                        | Admin Dashboard                                       |
+| :---------------------------------------------------------- | :------------------------------------------------------ | :---------------------------------------------------- |
+| ![Storefront](./docs/assets/store.png)                      | ![Seller Dashboard](./docs/assets/seller.png)           | ![Admin Dashboard](./docs/assets/admin.png)           |
+| ![Store Home](./docs/assets/store-1.png)                    | ![Seller Analytics](./docs/assets/seller-analytics.png) | ![Admin Analytics](./docs/assets/admin-analytics.png) |
+| ![Store Product](./docs/assets/store-2.png)                 | ![Add Product](./docs/assets/seller-add-product.png)    | ![AI Tools](./docs/assets/admin-ai-tools.png)         |
+| ![Store Grid](./docs/assets/store-3.png)                    | ![Seller Orders](./docs/assets/seller-orders.png)       | ![Admin Orders](./docs/assets/admin-orders.png)       |
+| ![Store Search](./docs/assets/store-4.png)                  | ![Seller Settings](./docs/assets/seller-settings.png)   | ![Admin Products](./docs/assets/admin-products.png)   |
+| ![Store Accounts](./docs/assets/store-accounts.png)         | ![Update Order](./docs/assets/seller-update-order.png)  | ![User Management](./docs/assets/admin-users.png)     |
+| ![Account Orders](./docs/assets/store-account-orders.png)   | ![Arabic Interface](./docs/assets/seller-arabic.png)    |                                                       |
+| ![Store Arabic](./docs/assets/store-arabic.png)             |                                                         |                                                       |
+| ![Shopping Cart](./docs/assets/store-cart.png)              |                                                         |                                                       |
+| ![Checkout Flow](./docs/assets/store-checkout.png)          |                                                         |                                                       |
+| ![Place Order](./docs/assets/store-place-order.png)         |                                                         |                                                       |
+| ![Product Details](./docs/assets/store-product-details.png) |                                                         |                                                       |
 
 ## Monorepo Structure
 
@@ -91,9 +124,9 @@ sequenceDiagram
 ```mermaid
 graph TB
     subgraph Clients
-        ST[Store App<br/>Port 3000]
-        SE[Seller App<br/>Port 3001]
-        AD[Admin App<br/>Port 3002]
+        ST[Store App<br/>Port 3001]
+        SE[Seller App<br/>Port 3002]
+        AD[Admin App<br/>Port 3003]
     end
 
     subgraph Auth
