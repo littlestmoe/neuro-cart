@@ -1,0 +1,31 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+}
+.leftPane {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #0f0e17, #1a1625);
+}
+.rightPane {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface, #fafafa);
+}
+.formWrapper {
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem;
+}
+@media (max-width: 768px) {
+  .leftPane {
+    display: none;
+  }
+  .rightPane {
+    flex: 1;
+  }
+}
