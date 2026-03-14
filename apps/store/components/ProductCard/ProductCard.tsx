@@ -39,7 +39,9 @@ export default function ProductCard({
   const handleToggleWishlist = () => {
     if (!userId) return;
     if (isInWishlist) {
-      const wishlistItem = wishlistItems.find((w) => w.productId === product.id);
+      const wishlistItem = wishlistItems.find(
+        (w) => w.productId === product.id,
+      );
       if (wishlistItem) removeFromWishlist({ id: wishlistItem.id });
     } else {
       addToWishlist({
@@ -60,7 +62,10 @@ export default function ProductCard({
           aria-label={`View ${product.name}`}
         >
           <Image
-            src={product.image || "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop"}
+            src={
+              product.image ||
+              "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop"
+            }
             alt={product.name}
             width={300}
             height={300}

@@ -98,7 +98,16 @@ export default function SellerAnalyticsPage() {
       ? (((totalRevenue - prevRevenue) / prevRevenue) * 100).toFixed(1)
       : "0.0";
 
-  const monthlyData = useMemo(() => groupByMonth(orders as unknown as Array<{ createdAt: { seconds: bigint }, totalAmount?: number }>), [orders]);
+  const monthlyData = useMemo(
+    () =>
+      groupByMonth(
+        orders as unknown as Array<{
+          createdAt: { seconds: bigint };
+          totalAmount?: number;
+        }>,
+      ),
+    [orders],
+  );
 
   const topProducts = useMemo(() => {
     const productSales: Record<

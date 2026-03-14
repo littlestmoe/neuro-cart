@@ -55,9 +55,8 @@ export function useOrders(userId?: string, sellerId?: string) {
   );
 
   const orders = useMemo(() => {
-    // If specific IDs are requested but not yet loaded, return empty to avoid flickering all data
     if (userId === "" || sellerId === "") return [];
-    
+
     let filtered = allOrders;
     if (userId) filtered = filtered.filter((o) => o.userId === userId);
     if (sellerId) filtered = filtered.filter((o) => o.sellerId === sellerId);

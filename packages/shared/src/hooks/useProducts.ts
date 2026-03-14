@@ -61,7 +61,9 @@ export function useProducts() {
   );
 
   const activeProducts = useMemo(() => {
-    return products.filter((p: Product) => (p.status as { tag?: string }).tag === "Active");
+    return products.filter(
+      (p: Product) => (p.status as { tag?: string }).tag === "Active",
+    );
   }, [products]);
 
   const addProduct = useCallback(

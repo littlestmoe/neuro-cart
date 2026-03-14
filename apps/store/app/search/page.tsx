@@ -45,7 +45,10 @@ function SearchPageContent() {
         | undefined;
       return {
         ...p,
-        status: hasStatus && (hasStatus as { tag?: string }).tag === "Active" ? "active" : "draft",
+        status:
+          hasStatus && (hasStatus as { tag?: string }).tag === "Active"
+            ? "active"
+            : "draft",
         condition:
           hasCondition && (hasCondition as { tag?: string }).tag === "New"
             ? "new"

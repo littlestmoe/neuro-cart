@@ -41,7 +41,13 @@ const STATUS_ICONS: Record<string, typeof Clock> = {
   Cancelled: XCircle,
 };
 
-const ORDER_STATUSES = ["Pending", "Processing", "Shipped", "Delivered", "Cancelled"] as const;
+const ORDER_STATUSES = [
+  "Pending",
+  "Processing",
+  "Shipped",
+  "Delivered",
+  "Cancelled",
+] as const;
 
 interface StatusFormData {
   status: string;
@@ -99,7 +105,9 @@ export default function AdminOrdersPage() {
         o.id.toLowerCase().includes(globalFilter.toLowerCase()) ||
         o.buyerName.toLowerCase().includes(globalFilter.toLowerCase()) ||
         o.sellerName.toLowerCase().includes(globalFilter.toLowerCase());
-      return matchSearch && (statusFilter === "all" || o.statusTag === statusFilter);
+      return (
+        matchSearch && (statusFilter === "all" || o.statusTag === statusFilter)
+      );
     });
   }, [enrichedOrders, globalFilter, statusFilter]);
 
@@ -117,7 +125,15 @@ export default function AdminOrdersPage() {
       if (!selectedOrder) return;
       updateOrderStatus({
         id: selectedOrder.id,
-        status: { tag: data.status as "Pending" | "Processing" | "Shipped" | "Delivered" | "Cancelled" | "Refunded" },
+        status: {
+          tag: data.status as
+            | "Pending"
+            | "Processing"
+            | "Shipped"
+            | "Delivered"
+            | "Cancelled"
+            | "Refunded",
+        },
       });
       setStatusModalOpen(false);
       setSelectedOrder(null);
@@ -125,13 +141,16 @@ export default function AdminOrdersPage() {
     [selectedOrder, updateOrderStatus],
   );
 
-  const statusLabels = useMemo<Record<string, string>>(() => ({
-    Pending: t("pending"),
-    Processing: t("processing"),
-    Shipped: t("shipped"),
-    Delivered: t("delivered"),
-    Cancelled: t("cancelled"),
-  }), [t]);
+  const statusLabels = useMemo<Record<string, string>>(
+    () => ({
+      Pending: t("pending"),
+      Processing: t("processing"),
+      Shipped: t("shipped"),
+      Delivered: t("delivered"),
+      Cancelled: t("cancelled"),
+    }),
+    [t],
+  );
 
   const columns = useMemo<ColumnDef<OrderRow>[]>(
     () => [
@@ -140,7 +159,7 @@ export default function AdminOrdersPage() {
         header: t("orderId"),
         cell: ({ getValue }) => (
           <span className={styles.orderId}>
-            {(getValue<string>()).slice(0, 12)}...
+            {getValue<string>().slice(0, 12)}...
           </span>
         ),
       },
@@ -276,7 +295,10 @@ export default function AdminOrdersPage() {
                 <tr key={row.id} className={styles.tr}>
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id} className={styles.td}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
                     </td>
                   ))}
                 </tr>
@@ -291,8 +313,8 @@ export default function AdminOrdersPage() {
 
         <nav className={styles.pagination} aria-label={tc("page")}>
           <span className={styles.pageInfo}>
-            {tc("page")} {table.getState().pagination.pageIndex + 1}{" "}
-            {tc("of")} {table.getPageCount()}
+            {tc("page")} {table.getState().pagination.pageIndex + 1} {tc("of")}{" "}
+            {table.getPageCount()}
           </span>
           <div className={styles.pageButtons}>
             <button
@@ -325,7 +347,11 @@ export default function AdminOrdersPage() {
         }}
         title={t("updateStatus")}
       >
-        <form onSubmit={handleSubmit(onStatusSubmit)} className={styles.form} noValidate>
+        <form
+          onSubmit={handleSubmit(onStatusSubmit)}
+          className={styles.form}
+          noValidate
+        >
           <FormField label={tc("status")} htmlFor="order-status">
             <Select
               {...register("status")}

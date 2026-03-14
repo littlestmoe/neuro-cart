@@ -38,7 +38,9 @@ interface ProductRow {
   stock: number;
 }
 
-function getStatusTag(status: { tag?: string } | Record<string, unknown>): ProductRow["status"] {
+function getStatusTag(
+  status: { tag?: string } | Record<string, unknown>,
+): ProductRow["status"] {
   const tag = (status as { tag?: string }).tag;
   if (tag === "Active" || "Active" in status) return "approved";
   if (tag === "Draft" || "Draft" in status) return "pending";
@@ -99,7 +101,10 @@ export default function AdminProductsPage() {
         cell: ({ row }) => (
           <div className={styles.productCell}>
             <Image
-              src={row.original.image || "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop"}
+              src={
+                row.original.image ||
+                "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop"
+              }
               alt={row.original.name}
               width={44}
               height={44}
@@ -153,7 +158,9 @@ export default function AdminProductsPage() {
               : v === "pending"
                 ? t("pending")
                 : t("rejected");
-          return <span className={`${styles.statusBadge} ${cls}`}>{label}</span>;
+          return (
+            <span className={`${styles.statusBadge} ${cls}`}>{label}</span>
+          );
         },
       },
       {
@@ -261,7 +268,10 @@ export default function AdminProductsPage() {
                 <tr key={row.id} className={styles.tr}>
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id} className={styles.td}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
                     </td>
                   ))}
                 </tr>
@@ -276,8 +286,8 @@ export default function AdminProductsPage() {
 
         <nav className={styles.pagination} aria-label={tc("page")}>
           <span className={styles.pageInfo}>
-            {tc("page")} {table.getState().pagination.pageIndex + 1}{" "}
-            {tc("of")} {table.getPageCount()}
+            {tc("page")} {table.getState().pagination.pageIndex + 1} {tc("of")}{" "}
+            {table.getPageCount()}
           </span>
           <div className={styles.pageButtons}>
             <button

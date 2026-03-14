@@ -93,9 +93,9 @@ export default function NewProductPage() {
       : null;
     const tagsArray = data.tags
       ? data.tags
-        .split(",")
-        .map((t) => t.trim())
-        .filter(Boolean)
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean)
       : [];
     addProduct({
       name: data.name,

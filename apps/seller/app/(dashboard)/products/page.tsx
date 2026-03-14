@@ -35,10 +35,17 @@ import Modal from "@neuro-cart/ui/Modal";
 import Select from "@neuro-cart/ui/Select";
 import FormField, { inputClass, textareaClass } from "@neuro-cart/ui/FormField";
 import styles from "./page.module.css";
-import { ProductCondition, ProductStatus } from "../../../../../packages/shared/src/bindings/product-server/types";
+import {
+  ProductCondition,
+  ProductStatus,
+} from "../../../../../packages/shared/src/bindings/product-server/types";
 
 const parseCsv = (val: unknown) => {
-  if (typeof val === "string") return val.split(",").map((v) => v.trim()).filter(Boolean);
+  if (typeof val === "string")
+    return val
+      .split(",")
+      .map((v) => v.trim())
+      .filter(Boolean);
   return val;
 };
 
@@ -47,7 +54,10 @@ const productFormSchema = z.object({
   price: z.number().positive("Price must be greater than 0"),
   originalPrice: z.number().positive().optional().nullable(),
   discount: z.number().min(0).max(100).optional().nullable(),
-  image: z.string().url("Must be a valid URL").min(1, "Main Image URL is required"),
+  image: z
+    .string()
+    .url("Must be a valid URL")
+    .min(1, "Main Image URL is required"),
   images: z.array(z.string().url()).optional(),
   categoryId: z.string().min(1, "Category is required"),
   colors: z.preprocess(parseCsv, z.array(z.string()).optional()),
@@ -81,7 +91,9 @@ interface ProductRow {
   images: string[];
 }
 
-function getStatusString(status: Record<string, unknown>): ProductRow["status"] {
+function getStatusString(
+  status: Record<string, unknown>,
+): ProductRow["status"] {
   if ("Active" in status) return "active";
   if ("Draft" in status) return "draft";
   if ("Archived" in status) return "archived";
@@ -137,7 +149,9 @@ export default function ProductsPage() {
         tags: p.tags ?? [],
         colors: p.colors ?? [],
         sizes: p.sizes ?? [],
-        condition: getConditionString(p.condition as unknown as Record<string, unknown>),
+        condition: getConditionString(
+          p.condition as unknown as Record<string, unknown>,
+        ),
         images: p.images ?? [],
       }));
   }, [products, sellerId]);
@@ -183,10 +197,12 @@ export default function ProductsPage() {
       const statusTag = editProduct
         ? editProduct.status === "out_of_stock"
           ? "OutOfStock"
-          : editProduct.status.charAt(0).toUpperCase() + editProduct.status.slice(1)
+          : editProduct.status.charAt(0).toUpperCase() +
+            editProduct.status.slice(1)
         : "Draft";
 
-      const conditionTag = data.condition.charAt(0).toUpperCase() + data.condition.slice(1);
+      const conditionTag =
+        data.condition.charAt(0).toUpperCase() + data.condition.slice(1);
 
       let parsedStatus: ProductStatus = { tag: "Draft" };
       if (statusTag === "Active") parsedStatus = { tag: "Active" };
@@ -194,7 +210,8 @@ export default function ProductsPage() {
       else if (statusTag === "OutOfStock") parsedStatus = { tag: "OutOfStock" };
 
       let parsedCondition: ProductCondition = { tag: "New" };
-      if (conditionTag === "Refurbished") parsedCondition = { tag: "Refurbished" };
+      if (conditionTag === "Refurbished")
+        parsedCondition = { tag: "Refurbished" };
       else if (conditionTag === "Used") parsedCondition = { tag: "Used" };
 
       if (editProduct) {
@@ -265,7 +282,10 @@ export default function ProductsPage() {
         cell: ({ row }) => (
           <div className={styles.productCell}>
             <Image
-              src={row.original.image || "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop"}
+              src={
+                row.original.image ||
+                "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop"
+              }
               alt={row.original.name}
               width={44}
               height={44}
@@ -364,7 +384,11 @@ export default function ProductsPage() {
               type="button"
             >
               {deletingId === row.original.id ? (
-                <Loader2 size={16} className={styles.spinning} aria-hidden="true" />
+                <Loader2
+                  size={16}
+                  className={styles.spinning}
+                  aria-hidden="true"
+                />
               ) : (
                 <Trash2 size={16} aria-hidden="true" />
               )}
@@ -394,13 +418,11 @@ export default function ProductsPage() {
       <header className={styles.header}>
         <div className={styles.titleGroup}>
           <h1>{t("title")}</h1>
-          <p>{productData.length} {t("title").toLowerCase()}</p>
+          <p>
+            {productData.length} {t("title").toLowerCase()}
+          </p>
         </div>
-        <button
-          className={styles.addBtn}
-          onClick={openAddModal}
-          type="button"
-        >
+        <button className={styles.addBtn} onClick={openAddModal} type="button">
           <Plus size={16} aria-hidden="true" /> {t("addProduct")}
         </button>
       </header>
@@ -438,7 +460,10 @@ export default function ProductsPage() {
                 <tr key={row.id} className={styles.tr}>
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id} className={styles.td}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext(),
+                      )}
                     </td>
                   ))}
                 </tr>
@@ -453,8 +478,8 @@ export default function ProductsPage() {
 
         <nav className={styles.pagination} aria-label={tc("page")}>
           <span className={styles.pageInfo}>
-            {tc("page")} {table.getState().pagination.pageIndex + 1}{" "}
-            {tc("of")} {table.getPageCount()}
+            {tc("page")} {table.getState().pagination.pageIndex + 1} {tc("of")}{" "}
+            {table.getPageCount()}
           </span>
           <div className={styles.pageButtons}>
             <button
@@ -629,10 +654,7 @@ export default function ProductsPage() {
           </FormField>
 
           <div className={styles.formGrid2}>
-            <FormField
-              label={t("colors")}
-              htmlFor="product-colors"
-            >
+            <FormField label={t("colors")} htmlFor="product-colors">
               <input
                 {...register("colors")}
                 id="product-colors"
@@ -640,10 +662,7 @@ export default function ProductsPage() {
                 placeholder={t("colorsPlaceholder")}
               />
             </FormField>
-            <FormField
-              label={t("sizes")}
-              htmlFor="product-sizes"
-            >
+            <FormField label={t("sizes")} htmlFor="product-sizes">
               <input
                 {...register("sizes")}
                 id="product-sizes"
@@ -653,10 +672,7 @@ export default function ProductsPage() {
             </FormField>
           </div>
 
-          <FormField
-            label={t("tags")}
-            htmlFor="product-tags"
-          >
+          <FormField label={t("tags")} htmlFor="product-tags">
             <input
               {...register("tags")}
               id="product-tags"
