@@ -2,6 +2,7 @@ use crate::models::*;
 use spacetimedb::{ReducerContext, Table, reducer};
 
 #[reducer]
+#[allow(clippy::too_many_arguments)]
 pub fn create_order(
     ctx: &ReducerContext,
     user_id: String,
@@ -36,6 +37,7 @@ pub fn create_order(
 }
 
 #[reducer]
+#[allow(clippy::too_many_arguments)]
 pub fn add_order_item(
     ctx: &ReducerContext,
     order_id: String,
