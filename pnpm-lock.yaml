@@ -297,8 +297,8 @@ importers:
         specifier: ^19.2.4
         version: 19.2.4
       spacetimedb:
-        specifier: ^2.0.3
-        version: 2.0.3(react@19.2.4)
+        specifier: ^2.0.4
+        version: 2.0.4(react@19.2.4)
       zod:
         specifier: ^3.23.8
         version: 3.25.76
@@ -1863,6 +1863,11 @@ packages:
     resolution: {integrity: sha512-v6UNi1+3hSlVvv8fSaoUbggEM5VErKmmpGA7Pl3HF8V6uKY7rvClBOJlH6yNwQtfTueNkGVpOv/mtWL9L4bgRA==}
     engines: {node: '>=14'}
 
+  prettier@3.8.1:
+    resolution: {integrity: sha512-UOnG6LftzbdaHZcKoPFtOcCKztrQ57WkHDeRD9t/PTQtmT0NHSeWWepj6pS0z/N7+08BHFDQVUrfmfMRcZwbMg==}
+    engines: {node: '>=14'}
+    hasBin: true
+
   prop-types@15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
 
@@ -2025,8 +2030,8 @@ packages:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
 
-  spacetimedb@2.0.3:
-    resolution: {integrity: sha512-ksW+A7CIHgfC7VBmvLwoCd0bqxHbPOX0gZmNt7LXVw0vsjnfRJWcLOSE8AbJCcw5eUOcI3MvuA/XH8monUG1OA==}
+  spacetimedb@2.0.4:
+    resolution: {integrity: sha512-7GiZerC9SKXvHvcaOLCgLEjFL4XOcG30k5f/ogA9QqBuD+tO/om6DfhIplo5dUg976gfqxr3Hsp5XtY2pPSCKw==}
     peerDependencies:
       '@angular/core': '>=17.0.0'
       '@tanstack/react-query': ^5.0.0
@@ -3815,6 +3820,8 @@ snapshots:
 
   prettier@3.7.4: {}
 
+  prettier@3.8.1: {}
+
   prop-types@15.8.1:
     dependencies:
       loose-envify: 1.4.0
@@ -4033,12 +4040,12 @@ snapshots:
 
   source-map-js@1.2.1: {}
 
-  spacetimedb@2.0.3(react@19.2.4):
+  spacetimedb@2.0.4(react@19.2.4):
     dependencies:
       base64-js: 1.5.1
       headers-polyfill: 4.0.3
       object-inspect: 1.13.4
-      prettier: 3.7.4
+      prettier: 3.8.1
       pure-rand: 7.0.1
       safe-stable-stringify: 2.5.0
       statuses: 2.0.2
