@@ -19,8 +19,8 @@
   <img src="https://img.shields.io/badge/Turborepo-2.8-EF4444?style=for-the-badge&logo=turborepo&logoColor=white" alt="Turborepo" />
   <img src="https://img.shields.io/badge/Rust-2024_Edition-DEA584?style=for-the-badge&logo=rust&logoColor=white" alt="Rust" />
   <img src="https://img.shields.io/badge/pnpm-9.0-F69220?style=for-the-badge&logo=pnpm&logoColor=white" alt="pnpm" />
-  <a href="https://creativecommons.org/licenses/by-nc/4.0/">
-    <img src="https://img.shields.io/badge/License-CC_BY--NC_4.0-EF9421?style=for-the-badge&logo=creative-commons&logoColor=white" alt="CC BY-NC 4.0" />
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge" alt="MIT License" />
   </a>
 </p>
 
@@ -576,9 +576,9 @@ pnpm dev
 ## License
 
 <p>
-  <a href="https://creativecommons.org/licenses/by-nc/4.0/">
-    <img src="https://mirrors.creativecommons.org/presskit/buttons/88x31/png/by-nc.png" alt="CC BY-NC 4.0" />
+  <a href="https://opensource.org/licenses/MIT">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License" />
   </a>
 </p>
 
-This work is licensed under the [Creative Commons Attribution-NonCommercial 4.0 International License](https://creativecommons.org/licenses/by-nc/4.0/).
+This work is licensed under the [MIT License](LICENSE).
